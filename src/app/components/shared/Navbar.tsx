@@ -15,7 +15,7 @@ const Navbar = () => {
     );
 
     return (
-        <div className="bg-black">
+        <div className="bg-black border border-2">
             <div className="navbar shadow-sm container mx-auto text-white">
                 {/* Logo + Mobile Menu */}
                 <div className="navbar-start">
