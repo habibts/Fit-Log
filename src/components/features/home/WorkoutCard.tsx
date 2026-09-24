@@ -1,14 +1,18 @@
 import Image from "next/image";
+import { IWorkout } from "@/types/workout.types";
+interface IWorkoutCardProps {
+    workout: IWorkout;
+}
 
-const WorkoutCard = () => {
+const WorkoutCard = ({ workout }: IWorkoutCardProps) => {
     return (
         <div className="group overflow-hidden rounded-2xl border border-[#2A2A2A] bg-[#181818] transition-all duration-300 hover:-translate-y-1 hover:border-[#C2F800]">
-            
+
             {/* Image */}
             <div className="relative h-64 w-full overflow-hidden">
                 <Image
-                    src="https://img.magnific.com/free-photo/portrait-anime-character-doing-fitness-exercising_23-2151666664.jpg?w=740"
-                    alt="Barbell Bench Press"
+                    src={workout.image}
+                    alt={workout.name}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -19,23 +23,24 @@ const WorkoutCard = () => {
 
                 {/* Muscle Groups */}
                 <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full bg-[#C2F800] px-3 py-1 text-xs font-semibold text-black">
-                        Chest
-                    </span>
-
-                    <span className="rounded-full bg-[#2A2A2A] px-3 py-1 text-xs font-medium text-gray-300">
-                        Arms
-                    </span>
+                    {workout.muscleGroups.map((muscle) => (
+                        <span
+                            key={muscle}
+                            className="rounded-full bg-[#C2F800] px-3 py-1 text-xs font-semibold text-black"
+                        >
+                            {muscle}
+                        </span>
+                    ))}
                 </div>
 
                 {/* Workout Name */}
                 <h2 className="mt-4 text-xl font-bold text-white">
-                    Barbell Bench Press
+                    {workout.name}
                 </h2>
 
                 {/* Equipment */}
                 <p className="mt-2 text-sm text-gray-400">
-                    Equipment: Barbell, Bench
+                    Equipment: {workout.equipment}
                 </p>
 
                 {/* Stats */}
@@ -47,7 +52,7 @@ const WorkoutCard = () => {
                         </p>
 
                         <p className="mt-1 text-sm font-semibold text-white">
-                            25 min
+                            {workout.duration} min
                         </p>
                     </div>
 
@@ -57,7 +62,7 @@ const WorkoutCard = () => {
                         </p>
 
                         <p className="mt-1 text-sm font-semibold text-white">
-                            180 kcal
+                            {workout.duration} min
                         </p>
                     </div>
 
@@ -67,7 +72,7 @@ const WorkoutCard = () => {
                         </p>
 
                         <p className="mt-1 text-sm font-semibold text-white">
-                            ★ 4.8
+                            ★ {workout.rating}
                         </p>
                     </div>
 
