@@ -45,11 +45,10 @@ const WorkoutActions = ({ workout }: IWorkoutActionsProps) => {
             {/* Add To Plan */}
             <button
                 onClick={handleAddToPlan}
-                className={`flex-1 rounded-full px-6 py-3 font-semibold transition ${
-                    alreadyAdded
+                className={`flex-1 rounded-full px-6 py-3 font-semibold transition-all duration-300 ${alreadyAdded
                         ? "cursor-not-allowed bg-gray-700 text-gray-400"
-                        : "bg-[#C2F800] text-black hover:bg-[#b8ed00]"
-                }`}
+                        : "bg-[#C2F800] text-black hover:-translate-y-1 hover:bg-[#b8ed00] hover:shadow-lg"
+                    }`}
             >
                 {alreadyAdded
                     ? "✓ Already Added"
@@ -59,11 +58,10 @@ const WorkoutActions = ({ workout }: IWorkoutActionsProps) => {
             {/* Save For Later */}
             <button
                 onClick={handleSaveForLater}
-                className={`flex-1 rounded-full px-6 py-3 font-semibold transition ${
-                    alreadySaved
+                className={`flex-1 rounded-full px-6 py-3 font-semibold transition-all duration-300 ${alreadySaved
                         ? "cursor-not-allowed border border-gray-600 text-gray-500"
-                        : "border border-[#C2F800] text-[#C2F800] hover:bg-[#C2F800] hover:text-black"
-                }`}
+                        : "border border-[#C2F800] text-[#C2F800] hover:-translate-y-1 hover:bg-[#C2F800] hover:text-black hover:shadow-lg"
+                    }`}
             >
                 {alreadySaved
                     ? "✓ Saved"

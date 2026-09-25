@@ -13,12 +13,12 @@ const WorkoutDetails = ({ workout }: IWorkoutDetailsProps) => {
             <div className="grid gap-10 lg:grid-cols-2">
 
                 {/* Image */}
-                <div className="relative min-h-125 overflow-hidden rounded-2xl bg-[#181818]">
+                <div className="group relative min-h-125 overflow-hidden rounded-2xl bg-[#181818]">
                     <Image
                         src={workout.image}
                         alt={workout.name}
                         fill
-                        className="object-cover"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
 
                     <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
