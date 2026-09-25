@@ -1,6 +1,7 @@
-
 import Image from "next/image";
 import { IWorkout } from "@/types/workout.types";
+import WorkoutActions from "./WorkoutActions";
+
 
 interface IWorkoutDetailsProps {
     workout: IWorkout;
@@ -12,7 +13,6 @@ const WorkoutDetails = ({ workout }: IWorkoutDetailsProps) => {
             <div className="grid gap-10 lg:grid-cols-2">
 
                 {/* Image */}
-
                 <div className="relative min-h-125 overflow-hidden rounded-2xl bg-[#181818]">
                     <Image
                         src={workout.image}
@@ -117,7 +117,7 @@ const WorkoutDetails = ({ workout }: IWorkoutDetailsProps) => {
                                 </span>
                             </div>
 
-                            <div className="flex justify-between border-b border-gray-700 px-5 py-4 transition hover:bg-[#1B202B]">
+                            <div className="flex justify-between px-5 py-4">
                                 <span className="text-sm text-[#9CA3AF]">
                                     RATING
                                 </span>
@@ -152,16 +152,8 @@ const WorkoutDetails = ({ workout }: IWorkoutDetailsProps) => {
                         </ol>
                     </div>
 
-                    {/* Buttons */}
-                    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <button className="flex-1 rounded-full bg-[#C2F800] px-6 py-3 font-semibold text-black transition hover:bg-[#b8ed00]">
-                            + Add to today&apos;s plan
-                        </button>
-
-                        <button className="flex-1 rounded-full border border-[#C2F800] px-6 py-3 font-semibold text-[#C2F800] transition hover:bg-[#C2F800] hover:text-black">
-                            ♡ Save for later
-                        </button>
-                    </div>
+                    {/* Actions */}
+                    <WorkoutActions workout={workout}></WorkoutActions>
 
                 </div>
             </div>
@@ -170,4 +162,3 @@ const WorkoutDetails = ({ workout }: IWorkoutDetailsProps) => {
 };
 
 export default WorkoutDetails;
-

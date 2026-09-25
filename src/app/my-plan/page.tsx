@@ -1,6 +1,12 @@
+"use client";
 
 import Link from "next/link";
+import usePlan from "@/hooks/usePlan";
+import PlanWorkoutCard from "@/components/features/my-plan/PlanWorkoutCard";
+
 const MyPlanPage = () => {
+    const { plan } = usePlan();
+
     return (
         <main className="min-h-screen bg-black text-white">
             <section className="container mx-auto px-4 py-12">
@@ -50,6 +56,7 @@ const MyPlanPage = () => {
                     </div>
 
                 </div>
+
                 {/* Tabs */}
                 <div className="mt-10 flex gap-2 border-b border-[#2A2A2A]">
 
@@ -67,25 +74,38 @@ const MyPlanPage = () => {
 
                 </div>
 
-                {/* Empty State */}
-<div className="mt-16 flex flex-col items-center justify-center text-center">
+                {/* Plan / Empty State */}
+                {plan.length === 0 ? (
+                    <div className="mt-16 flex flex-col items-center justify-center text-center">
 
-    <h2 className="text-2xl font-bold text-white">
-        NOTHING HERE YET
-    </h2>
+                        <h2 className="text-2xl font-bold text-white">
+                            NOTHING HERE YET
+                        </h2>
 
-    <p className="mt-3 max-w-md text-gray-400">
-        Browse the library and add a lift to get today moving.
-    </p>
+                        <p className="mt-3 max-w-md text-gray-400">
+                            Browse the library and add a lift to get today moving.
+                        </p>
 
-    <Link
-        href="/"
-        className="mt-6 rounded-full bg-[#C2F800] px-6 py-3 font-semibold text-black transition hover:bg-[#b8ed00]"
-    >
-        Go to workouts
-    </Link>
+                        <Link
+                            href="/"
+                            className="mt-6 rounded-full bg-[#C2F800] px-6 py-3 font-semibold text-black transition hover:bg-[#b8ed00]"
+                        >
+                            Go to workouts
+                        </Link>
 
-</div>
+                    </div>
+                ) : (
+                    <div className="mt-8 space-y-4">
+
+                        {plan.map((workout) => (
+                            <PlanWorkoutCard
+                                key={workout.id}
+                                workout={workout}
+                            />
+                        ))}
+
+                    </div>
+                )}
 
             </section>
         </main>
