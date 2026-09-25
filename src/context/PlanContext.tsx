@@ -12,6 +12,7 @@ interface IPlanProviderProps {
 
 const PlanProvider = ({ children }: IPlanProviderProps) => {
     const [plan, setPlan] = useState<IWorkout[]>([]);
+    const [saved, setSaved] = useState<IWorkout[]>([]);
 
     const addToPlan = (workout: IWorkout) => {
         setPlan((prevPlan) => {
@@ -27,11 +28,27 @@ const PlanProvider = ({ children }: IPlanProviderProps) => {
         });
     };
 
+    const saveForLater = (workout: IWorkout) => {
+        setSaved((prevSaved) => {
+            const alreadySaved = prevSaved.some(
+                (item) => item.id === workout.id
+            );
+
+            if (alreadySaved) {
+                return prevSaved;
+            }
+
+            return [...prevSaved, workout];
+        });
+    };
+
     return (
         <PlanContext.Provider
             value={{
                 plan,
+                saved,
                 addToPlan,
+                saveForLater,
             }}
         >
             {children}

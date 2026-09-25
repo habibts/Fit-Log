@@ -9,9 +9,13 @@ interface IWorkoutActionsProps {
 }
 
 const WorkoutActions = ({ workout }: IWorkoutActionsProps) => {
-    const { plan, addToPlan } = usePlan();
+    const { plan, saved, addToPlan, saveForLater } = usePlan();
 
     const alreadyAdded = plan.some(
+        (item) => item.id === workout.id
+    );
+
+    const alreadySaved = saved.some(
         (item) => item.id === workout.id
     );
 
@@ -22,17 +26,28 @@ const WorkoutActions = ({ workout }: IWorkoutActionsProps) => {
         }
 
         addToPlan(workout);
-
         toast.success("Added to today's plan");
+    };
+
+    const handleSaveForLater = () => {
+        if (alreadySaved) {
+            toast.error("Already saved for later");
+            return;
+        }
+
+        saveForLater(workout);
+        toast.success("Saved for later");
     };
 
     return (
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+
+            {/* Add To Plan */}
             <button
                 onClick={handleAddToPlan}
                 className={`flex-1 rounded-full px-6 py-3 font-semibold transition ${
                     alreadyAdded
-                        ? "bg-gray-700 text-gray-300"
+                        ? "cursor-not-allowed bg-gray-700 text-gray-400"
                         : "bg-[#C2F800] text-black hover:bg-[#b8ed00]"
                 }`}
             >
@@ -41,11 +56,20 @@ const WorkoutActions = ({ workout }: IWorkoutActionsProps) => {
                     : "+ Add to today's plan"}
             </button>
 
+            {/* Save For Later */}
             <button
-                className="flex-1 rounded-full border border-[#C2F800] px-6 py-3 font-semibold text-[#C2F800] transition hover:bg-[#C2F800] hover:text-black"
+                onClick={handleSaveForLater}
+                className={`flex-1 rounded-full px-6 py-3 font-semibold transition ${
+                    alreadySaved
+                        ? "cursor-not-allowed border border-gray-600 text-gray-500"
+                        : "border border-[#C2F800] text-[#C2F800] hover:bg-[#C2F800] hover:text-black"
+                }`}
             >
-                ♡ Save for later
+                {alreadySaved
+                    ? "✓ Saved"
+                    : "♡ Save for later"}
             </button>
+
         </div>
     );
 };
