@@ -6,7 +6,7 @@ const Navbar = () => {
     const links = (
         <>
             <li>
-                <Link href="/workouts" className="flex items-center justify-center w-24 h-10 text-[#9CA3AF] hover:text-[#C2F800] hover:bg-[#C2F800]/10 rounded-full transition-all duration-200">Workouts</Link>
+                <Link href="/" className="flex items-center justify-center w-24 h-10 text-[#9CA3AF] hover:text-[#C2F800] hover:bg-[#C2F800]/10 rounded-full transition-all duration-200">Workouts</Link>
             </li>
             <li>
                 <Link href="/my-plan" className="flex items-center justify-center w-24 h-10 text-[#9CA3AF] hover:text-[#C2F800] hover:bg-[#C2F800]/10 rounded-full transition-all duration-200">My Plan</Link>
@@ -15,7 +15,7 @@ const Navbar = () => {
     );
 
     return (
-        <div className="bg-black border border-2">
+        <div className="bg-black border">
             <div className="navbar shadow-sm container mx-auto text-white">
                 {/* Logo + Mobile Menu */}
                 <div className="navbar-start">
