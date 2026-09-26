@@ -1,18 +1,25 @@
 import Image from "next/image";
-import React from "react";
+import { Oswald } from "next/font/google";
+
+const oswald = Oswald({
+    subsets: ["latin"],
+    weight: ["700"],
+});
 
 const Banner = () => {
     return (
         <section className="mx-auto mt-6 w-[calc(100%-2rem)] max-w-7xl rounded-2xl bg-[#222630] px-5 py-10 sm:mt-8 sm:w-[calc(100%-3rem)] sm:px-8 sm:py-12 md:px-10 md:py-16 lg:mt-10 lg:w-[calc(100%-4rem)] lg:px-16 lg:py-20">
             <div className="flex flex-col items-center justify-between gap-10 lg:flex-row">
-
-                {/* Left Content */}
+                
                 <div className="w-full max-w-xl text-center lg:text-left">
+                    
                     <h4 className="mb-4 text-sm font-semibold tracking-[3px] text-[#C2F800]">
                         WORKOUT LIBRARY
                     </h4>
 
-                    <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+                    <h1
+                        className={`${oswald.className} text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl`}
+                    >
                         TRAIN WITH INTENT. LOG EVERY SET.
                     </h1>
 
@@ -22,12 +29,15 @@ const Banner = () => {
                         week&apos;s work add up.
                     </p>
 
-                    <button className="mt-8 rounded-full bg-[#C2F800] px-6 py-3 font-bold text-black transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg">
+                    <a
+                        href="#library"
+                        className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#C2F800] px-6 py-3 font-bold text-black transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg"
+                    >
                         BROWSE WORKOUTS
-                    </button>
+                        <span>↓</span>
+                    </a>
                 </div>
 
-                {/* Right Image */}
                 <div className="w-full max-w-lg transition-transform duration-500 hover:scale-105">
                     <Image
                         src="/images/banner.png"
@@ -38,7 +48,6 @@ const Banner = () => {
                         className="h-auto w-full object-contain"
                     />
                 </div>
-
             </div>
         </section>
     );

@@ -1,71 +1,209 @@
 "use client";
 
-import { createContext, ReactNode, useState } from "react";
-import { IWorkout } from "@/types/workout.types";
-import { IPlanContext, ActiveTab } from "@/types/plan.types";
+import {
+    createContext,
+    ReactNode,
+    useState,
+    useSyncExternalStore,
+} from "react";
 
-const PlanContext = createContext<IPlanContext | null>(null);
+import { IWorkout } from "@/types/workout.types";
+import {
+    IPlanContext,
+    ActiveTab,
+} from "@/types/plan.types";
+
+const PlanContext =
+    createContext<IPlanContext | null>(null);
 
 interface IPlanProviderProps {
     children: ReactNode;
 }
 
-const PlanProvider = ({ children }: IPlanProviderProps) => {
-    const [plan, setPlan] = useState<IWorkout[]>([]);
-    const [saved, setSaved] = useState<IWorkout[]>([]);
+/* Local Storage Store */
+
+const createStorageStore = <T,>(
+    key: string,
+    defaultValue: T
+) => {
+    let cachedValue = defaultValue;
+    let cachedRawValue: string | null = null;
+
+    const getSnapshot = () => {
+        if (typeof window === "undefined") {
+            return defaultValue;
+        }
+
+        const rawValue = localStorage.getItem(key);
+
+        if (rawValue === cachedRawValue) {
+            return cachedValue;
+        }
+
+        cachedRawValue = rawValue;
+
+        if (!rawValue) {
+            cachedValue = defaultValue;
+            return cachedValue;
+        }
+
+        try {
+            cachedValue = JSON.parse(rawValue) as T;
+        } catch {
+            cachedValue = defaultValue;
+        }
+
+        return cachedValue;
+    };
+
+    const getServerSnapshot = () => {
+        return defaultValue;
+    };
+
+    const subscribe = (callback: () => void) => {
+        window.addEventListener(
+            "storage",
+            callback
+        );
+
+        window.addEventListener(
+            "fitlog-storage",
+            callback
+        );
+
+        return () => {
+            window.removeEventListener(
+                "storage",
+                callback
+            );
+
+            window.removeEventListener(
+                "fitlog-storage",
+                callback
+            );
+        };
+    };
+
+    const setValue = (value: T) => {
+        const rawValue = JSON.stringify(value);
+
+        localStorage.setItem(key, rawValue);
+
+        cachedRawValue = rawValue;
+        cachedValue = value;
+
+        window.dispatchEvent(
+            new Event("fitlog-storage")
+        );
+    };
+
+    return {
+        getSnapshot,
+        getServerSnapshot,
+        subscribe,
+        setValue,
+    };
+};
+
+/* Plan Provider */
+
+const PlanProvider = ({
+    children,
+}: IPlanProviderProps) => {
+    const planStore = useState(() =>
+        createStorageStore<IWorkout[]>(
+            "fitlog-plan",
+            []
+        )
+    )[0];
+
+    const savedStore = useState(() =>
+        createStorageStore<IWorkout[]>(
+            "fitlog-saved",
+            []
+        )
+    )[0];
+
+    const plan = useSyncExternalStore(
+        planStore.subscribe,
+        planStore.getSnapshot,
+        planStore.getServerSnapshot
+    );
+
+    const saved = useSyncExternalStore(
+        savedStore.subscribe,
+        savedStore.getSnapshot,
+        savedStore.getServerSnapshot
+    );
 
     const [activeTab, setActiveTab] =
         useState<ActiveTab>("plan");
 
+    /* Add To Plan */
+
     const addToPlan = (workout: IWorkout) => {
-        setPlan((prevPlan) => {
-            const alreadyAdded = prevPlan.some(
-                (item) => item.id === workout.id
-            );
+        const alreadyAdded = plan.some(
+            (item) => item.id === workout.id
+        );
 
-            if (alreadyAdded) {
-                return prevPlan;
-            }
+        if (alreadyAdded) {
+            return;
+        }
 
-            return [...prevPlan, workout];
-        });
+        planStore.setValue([
+            ...plan,
+            workout,
+        ]);
     };
+
+    /* Save For Later */
 
     const saveForLater = (workout: IWorkout) => {
-        setSaved((prevSaved) => {
-            const alreadySaved = prevSaved.some(
-                (item) => item.id === workout.id
-            );
+        const alreadySaved = saved.some(
+            (item) => item.id === workout.id
+        );
 
-            if (alreadySaved) {
-                return prevSaved;
-            }
+        if (alreadySaved) {
+            return;
+        }
 
-            return [...prevSaved, workout];
-        });
+        savedStore.setValue([
+            ...saved,
+            workout,
+        ]);
     };
+
+    /* Mark As Done */
 
     const markAsDone = (id: number) => {
-        setPlan((prevPlan) =>
-            prevPlan.filter((workout) => workout.id !== id)
+        const updatedPlan = plan.filter(
+            (workout) => workout.id !== id
         );
+
+        planStore.setValue(updatedPlan);
     };
+
+    /* Remove From Plan */
 
     const removeFromPlan = (
         id: number,
         fromSaved: boolean = false
     ) => {
         if (fromSaved) {
-            setSaved((prevSaved) =>
-                prevSaved.filter((workout) => workout.id !== id)
+            const updatedSaved = saved.filter(
+                (workout) => workout.id !== id
             );
+
+            savedStore.setValue(updatedSaved);
 
             return;
         }
 
-        setPlan((prevPlan) =>
-            prevPlan.filter((workout) => workout.id !== id)
+        const updatedPlan = plan.filter(
+            (workout) => workout.id !== id
         );
+
+        planStore.setValue(updatedPlan);
     };
 
     return (
@@ -89,5 +227,8 @@ const PlanProvider = ({ children }: IPlanProviderProps) => {
     );
 };
 
-export { PlanProvider };
+export {
+    PlanProvider,
+};
+
 export default PlanContext;

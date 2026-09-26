@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import usePlan from "@/hooks/usePlan";
 import PlanWorkoutCard from "@/components/features/my-plan/PlanWorkoutCard";
@@ -17,6 +17,16 @@ const MyPlanPage = () => {
 
     const [sortBy, setSortBy] =
         useState<SortOption>("duration");
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     const activeList =
         activeTab === "plan" ? plan : saved;
@@ -166,8 +176,16 @@ const MyPlanPage = () => {
                     </div>
                 </div>
 
-                {/* Workout List / Empty State */}
-                {sortedList.length === 0 ? (
+                {/* Loading State */}
+                {isLoading ? (
+                    <div className="flex min-h-60 items-center justify-center">
+                        <p className="text-sm text-gray-400">
+                            Loading workouts…
+                        </p>
+                    </div>
+                ) : sortedList.length === 0 ? (
+
+                    /* Empty State */
                     <div className="mt-16 flex flex-col items-center justify-center px-4 text-center">
 
                         <h2 className="text-2xl font-bold text-white">
@@ -188,7 +206,10 @@ const MyPlanPage = () => {
                         </Link>
 
                     </div>
+
                 ) : (
+
+                    /* Workout List */
                     <div className="mt-8 space-y-4">
 
                         {sortedList.map((workout) => (

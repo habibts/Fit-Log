@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
-
 import { IWorkout } from "@/types/workout.types";
 import usePlan from "@/hooks/usePlan";
+import { Clock3, Flame, Star } from "lucide-react";
 
 interface IPlanWorkoutCardProps {
     workout: IWorkout;

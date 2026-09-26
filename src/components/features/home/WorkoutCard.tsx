@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IWorkout } from "@/types/workout.types";
+import { Clock3, Flame, Star } from "lucide-react";
 
 interface IWorkoutCardProps {
     workout: IWorkout;
@@ -48,38 +49,28 @@ const WorkoutCard = ({ workout }: IWorkoutCardProps) => {
                     </p>
 
                     {/* Stats */}
-                    <div className="mt-6 grid grid-cols-3 gap-4 border-t border-[#2A2A2A] pt-4">
-
-                        <div>
-                            <p className="text-xs text-gray-500">
-                                Duration
-                            </p>
-
-                            <p className="mt-1 text-sm font-semibold text-white">
+                    {/* Stats */}
+                    <div className="mt-6 grid grid-cols-3 gap-3 border-t border-[#2A2A2A] pt-4">
+                        <div className="flex items-center gap-2">
+                            <Clock3 className="h-4 w-4 shrink-0 text-[#C2F800]" />
+                            <span className="text-sm font-semibold text-white">
                                 {workout.duration} min
-                            </p>
+                            </span>
                         </div>
 
-                        <div>
-                            <p className="text-xs text-gray-500">
-                                Calories
-                            </p>
-
-                            <p className="mt-1 text-sm font-semibold text-white">
+                        <div className="flex items-center gap-2">
+                            <Flame className="h-4 w-4 shrink-0 text-[#C2F800]" />
+                            <span className="text-sm font-semibold text-white">
                                 {workout.caloriesBurned} kcal
-                            </p>
+                            </span>
                         </div>
 
-                        <div>
-                            <p className="text-xs text-gray-500">
-                                Rating
-                            </p>
-
-                            <p className="mt-1 text-sm font-semibold text-white">
-                                ★ {workout.rating}
-                            </p>
+                        <div className="flex items-center gap-2">
+                            <Star className="h-4 w-4 shrink-0 fill-[#C2F800] text-[#C2F800]" />
+                            <span className="text-sm font-semibold text-white">
+                                {workout.rating}
+                            </span>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -121,24 +121,24 @@ const Navbar = () => {
                 {/* Right Side */}
                 <div className="navbar-end min-w-0 gap-1 sm:gap-1.5 lg:gap-3">
 
-                    {/* Plan */}
+                    {/* Plan Badge */}
                     <Link
                         href="/my-plan"
                         onClick={handlePlanClick}
-                        className="flex shrink-0 items-center gap-1 rounded-full border border-[#C2F800] px-2 py-1.5 text-[11px] font-semibold text-[#C2F800] transition-all duration-200 hover:bg-[#C2F800]/10 sm:gap-1.5 sm:px-2.5 sm:text-xs lg:gap-2 lg:px-4 lg:py-2 lg:text-sm"
+                        className="flex shrink-0 items-center gap-1 rounded-full bg-[#C2F800] px-2 py-1.5 text-[11px] font-semibold text-black transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#b8ed00] sm:gap-1.5 sm:px-2.5 sm:text-xs lg:gap-2 lg:px-4 lg:py-2 lg:text-sm"
                     >
                         <span>Plan</span>
 
-                        <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#C2F800] px-1 text-[10px] font-bold text-black">
+                        <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] font-bold text-[#C2F800]">
                             {plan.length}
                         </span>
                     </Link>
 
-                    {/* Saved */}
+                    {/* Saved Badge */}
                     <Link
                         href="/my-plan"
                         onClick={handleSavedClick}
-                        className="flex shrink-0 items-center gap-1 rounded-full border border-[#C2F800] px-2 py-1.5 text-[11px] font-semibold text-[#C2F800] transition-all duration-200 hover:bg-[#C2F800]/10 sm:gap-1.5 sm:px-2.5 sm:text-xs lg:gap-2 lg:px-4 lg:py-2 lg:text-sm"
+                        className="flex shrink-0 items-center gap-1 rounded-full border border-[#C2F800] px-2 py-1.5 text-[11px] font-semibold text-[#C2F800] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#C2F800]/10 sm:gap-1.5 sm:px-2.5 sm:text-xs lg:gap-2 lg:px-4 lg:py-2 lg:text-sm"
                     >
                         <span>Saved</span>
 

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { IWorkout } from "@/types/workout.types";
 import WorkoutActions from "./WorkoutActions";
-
+import { Bookmark, Plus } from "lucide-react";
 
 interface IWorkoutDetailsProps {
     workout: IWorkout;
