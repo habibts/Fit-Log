@@ -1,39 +1,41 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
-const Footer = () => {
+const Logo = () => {
+    const pathname = usePathname();
+    const router = useRouter();
+
+    const handleLogoClick = () => {
+        if (pathname === "/") {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        } else {
+            router.push("/");
+        }
+    };
+
     return (
-        <footer className="border-t border-[#2A2A2A] bg-black text-white">
-            <div className="container mx-auto px-4 py-8 sm:py-10">
-                <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
+        <button
+            onClick={handleLogoClick}
+            className="flex items-center gap-2 transition-opacity hover:opacity-80"
+        >
+            <Image
+                src="/images/logo.png"
+                alt="FitLog Logo"
+                width={40}
+                height={40}
+            />
 
-                    {/* Brand */}
-                    <Link
-                        href="/#top"
-                        className="flex items-center gap-3 transition-opacity duration-200 hover:opacity-80"
-                    >
-                        <Image
-                            src="/images/logo.png"
-                            alt="FitLog Logo"
-                            width={40}
-                            height={40}
-                            className="h-9 w-9"
-                        />
-
-                        <span className="text-xl font-bold tracking-wide">
-                            FIT<span className="text-[#C2F800]">LOG</span>
-                        </span>
-                    </Link>
-
-                    {/* Copyright */}
-                    <p className="text-center text-sm text-gray-500 md:text-right">
-                        © 2026 FitLog — Workout Library. Train hard, log honest.
-                    </p>
-
-                </div>
-            </div>
-        </footer>
+            <span className="text-xl font-bold">
+                FIT<span className="text-[#C2F800]">LOG</span>
+            </span>
+        </button>
     );
 };
 
-export default Footer;
+export default Logo;
