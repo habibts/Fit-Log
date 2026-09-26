@@ -94,7 +94,7 @@ const Navbar = () => {
 
                     {/* Logo */}
                     <Link
-                        href="/"
+                        href="/#top"
                         className="flex shrink-0 items-center gap-1 transition-opacity duration-200 hover:opacity-80 sm:gap-1.5 lg:gap-2"
                     >
                         <Image

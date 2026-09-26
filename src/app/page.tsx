@@ -7,11 +7,10 @@ import React from 'react';
 
 const page = () => {
   return (
-    <div>
-      <Banner></Banner>
-      <Library></Library>
-      
-    </div>
+        <main id="top" className="min-h-screen bg-black text-white">
+            <Banner />
+            <Library />
+        </main>
   );
 };
 

@@ -10,7 +10,7 @@ const oswald = Oswald({
 
 const getLibraryData = async (): Promise<IWorkout[]> => {
 
-    const res = await fetch('https://api.abcz.workers.dev/api/fitlog')
+    const res = await fetch('https://api.api-store.workers.dev/api/fitlog')
     return res.json();
 
 }

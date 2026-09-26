@@ -142,19 +142,19 @@ const PlanProvider = ({
     /* Add To Plan */
 
     const addToPlan = (workout: IWorkout) => {
-        const alreadyAdded = plan.some(
-            (item) => item.id === workout.id
-        );
+    const alreadyAdded = plan.some(
+        (item) => item.id === workout.id
+    );
 
-        if (alreadyAdded) {
-            return;
-        }
+    if (alreadyAdded || plan.length >= 5) {
+        return;
+    }
 
-        planStore.setValue([
-            ...plan,
-            workout,
-        ]);
-    };
+    planStore.setValue([
+        ...plan,
+        workout,
+    ]);
+};
 
     /* Save For Later */
 

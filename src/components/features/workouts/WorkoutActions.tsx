@@ -21,9 +21,16 @@ const WorkoutActions = ({ workout }: IWorkoutActionsProps) => {
         (item) => item.id === workout.id
     );
 
+    const planFull = plan.length >= 5;
+
     const handleAddToPlan = () => {
         if (alreadyAdded) {
             toast.error("Already added to today's plan");
+            return;
+        }
+
+        if (planFull) {
+            toast.error("Today's plan is full");
             return;
         }
 
@@ -43,14 +50,12 @@ const WorkoutActions = ({ workout }: IWorkoutActionsProps) => {
 
     return (
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-
-            {/* Add To Plan */}
             <button
                 onClick={handleAddToPlan}
                 className={`flex flex-1 items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition-all duration-300 ${
                     alreadyAdded
-                        ? "cursor-not-allowed bg-gray-700 text-gray-400"
-                        : "bg-[#C2F800] text-black hover:-translate-y-1 hover:bg-[#b8ed00] hover:shadow-lg"
+                        ? "bg-gray-700 text-gray-400"
+                        : "bg-[#C2F800] text-black hover:-translate-y-1 hover:bg-[#b8ed00) hover:shadow-lg"
                 }`}
             >
                 <Plus className="h-5 w-5" />
@@ -60,12 +65,11 @@ const WorkoutActions = ({ workout }: IWorkoutActionsProps) => {
                     : "Add to today's plan"}
             </button>
 
-            {/* Save For Later */}
             <button
                 onClick={handleSaveForLater}
                 className={`flex flex-1 items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition-all duration-300 ${
                     alreadySaved
-                        ? "cursor-not-allowed border border-gray-600 text-gray-500"
+                        ? "border border-gray-600 text-gray-500"
                         : "border border-[#C2F800] text-[#C2F800] hover:-translate-y-1 hover:bg-[#C2F800] hover:text-black hover:shadow-lg"
                 }`}
             >
@@ -75,7 +79,6 @@ const WorkoutActions = ({ workout }: IWorkoutActionsProps) => {
                     ? "Saved"
                     : "Save for later"}
             </button>
-
         </div>
     );
 };

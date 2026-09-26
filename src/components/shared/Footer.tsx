@@ -9,7 +9,7 @@ const Footer = () => {
 
                     {/* Brand */}
                     <Link
-                        href="/"
+                        href="/#top"
                         className="flex items-center gap-3 transition-opacity duration-200 hover:opacity-80"
                     >
                         <Image

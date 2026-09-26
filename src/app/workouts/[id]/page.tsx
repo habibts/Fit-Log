@@ -1,8 +1,7 @@
+import { notFound } from "next/navigation";
 
 import WorkoutDetails from "@/components/features/workouts/WorkoutDetails";
 import { IWorkout } from "@/types/workout.types";
-
-
 
 interface IWorkoutDetailPageProps {
     params: Promise<{
@@ -10,12 +9,22 @@ interface IWorkoutDetailPageProps {
     }>;
 }
 
-const getWorkout = async (id: string): Promise<IWorkout> => {
+const getWorkout = async (id: string): Promise<IWorkout | null> => {
     const res = await fetch(
-        `https://api.abcz.workers.dev/api/fitlog/${id}`
+        `https://api.api-store.workers.dev/api/fitlog/${id}`
     );
 
-    return res.json();
+    if (!res.ok) {
+        return null;
+    }
+
+    const data = await res.json();
+
+    if (!data || !data.id) {
+        return null;
+    }
+
+    return data;
 };
 
 const WorkoutDetailPage = async ({
@@ -25,9 +34,13 @@ const WorkoutDetailPage = async ({
 
     const workout = await getWorkout(id);
 
+    if (!workout) {
+        notFound();
+    }
+
     return (
         <main className="min-h-screen bg-black text-white">
-            <WorkoutDetails workout={workout}></WorkoutDetails>
+            <WorkoutDetails workout={workout} />
         </main>
     );
 };
