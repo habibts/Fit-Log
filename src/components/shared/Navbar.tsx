@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import usePlan from "@/hooks/usePlan";
 
 const Navbar = () => {
     const pathname = usePathname();
+    const router = useRouter();
 
     const {
         plan,
@@ -20,6 +21,17 @@ const Navbar = () => {
 
     const handleSavedClick = () => {
         setActiveTab("saved");
+    };
+
+    const handleLogoClick = () => {
+        if (pathname === "/") {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        } else {
+            router.push("/");
+        }
     };
 
     const links = (
@@ -93,8 +105,8 @@ const Navbar = () => {
                     </div>
 
                     {/* Logo */}
-                    <Link
-                        href="/#top"
+                    <button
+                        onClick={handleLogoClick}
                         className="flex shrink-0 items-center gap-1 transition-opacity duration-200 hover:opacity-80 sm:gap-1.5 lg:gap-2"
                     >
                         <Image
@@ -108,7 +120,7 @@ const Navbar = () => {
                         <span className="text-sm font-bold tracking-wide sm:text-base lg:text-xl">
                             FIT<span className="text-[#C2F800]">LOG</span>
                         </span>
-                    </Link>
+                    </button>
                 </div>
 
                 {/* Desktop Menu */}
