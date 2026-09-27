@@ -27,17 +27,17 @@ const WorkoutDetails = ({ workout }: IWorkoutDetailsProps) => {
                 {/* Right Side - Details */}
                 <div>
 
-                    {/* Title */}
+                    
                     <h1 className="text-4xl font-bold text-white">
                         {workout.name}
                     </h1>
 
-                    {/* Description */}
+                  
                     <p className="mt-4 leading-7 text-gray-400">
                         {workout.description}
                     </p>
 
-                    {/* Tags */}
+                    
                     <div className="mt-6 flex flex-wrap gap-2">
                         {workout.muscleGroups.map((muscle) => (
                             <span
@@ -152,7 +152,7 @@ const WorkoutDetails = ({ workout }: IWorkoutDetailsProps) => {
                         </ol>
                     </div>
 
-                    {/* Actions */}
+                    
                     <WorkoutActions workout={workout}></WorkoutActions>
 
                 </div>

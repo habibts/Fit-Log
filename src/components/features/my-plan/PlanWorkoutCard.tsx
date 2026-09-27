@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import { Check, Clock3, Flame, Star, X } from "lucide-react";
+
 import { IWorkout } from "@/types/workout.types";
 import usePlan from "@/hooks/usePlan";
-import { Clock3, Flame, Star } from "lucide-react";
 
 interface IPlanWorkoutCardProps {
     workout: IWorkout;
@@ -25,6 +26,7 @@ const PlanWorkoutCard = ({
 
     const handleRemove = () => {
         removeFromPlan(workout.id, isSaved);
+
         toast.success(
             isSaved
                 ? `${workout.name} removed from saved`
@@ -39,7 +41,7 @@ const PlanWorkoutCard = ({
                 {/* Workout Info */}
                 <div className="flex min-w-0 flex-1 gap-4">
 
-                    {/* Image */}
+
                     <div className="h-28 w-28 shrink-0 overflow-hidden rounded-xl bg-[#222]">
                         <Image
                             src={workout.image}
@@ -50,7 +52,7 @@ const PlanWorkoutCard = ({
                         />
                     </div>
 
-                    {/* Details */}
+
                     <div className="min-w-0">
                         <h3 className="text-xl font-bold text-white">
                             {workout.name}
@@ -61,17 +63,25 @@ const PlanWorkoutCard = ({
                         </p>
 
                         <div className="mt-4 flex flex-wrap gap-4 text-sm">
-                            <span className="text-gray-400">
-                                ⏱ {workout.duration} min
+
+
+                            <span className="flex items-center gap-1.5 text-gray-400">
+                                <Clock3 className="h-4 w-4 text-[#C2F800]" />
+                                {workout.duration} min
                             </span>
 
-                            <span className="text-gray-400">
-                                🔥 {workout.caloriesBurned} kcal
+
+                            <span className="flex items-center gap-1.5 text-gray-400">
+                                <Flame className="h-4 w-4 text-[#C2F800]" />
+                                {workout.caloriesBurned} kcal
                             </span>
 
-                            <span className="text-[#C2F800]">
-                                ★ {workout.rating}
+
+                            <span className="flex items-center gap-1.5 text-[#C2F800]">
+                                <Star className="h-4 w-4 fill-[#C2F800]" />
+                                {workout.rating}
                             </span>
+
                         </div>
                     </div>
                 </div>
@@ -79,7 +89,7 @@ const PlanWorkoutCard = ({
                 {/* Actions */}
                 <div className="flex items-center justify-end gap-2">
 
-                    {/* View Details */}
+
                     <Link
                         href={`/workouts/${workout.id}`}
                         className="rounded-full border border-[#C2F800] px-4 py-2 text-center text-sm font-semibold text-[#C2F800] transition hover:bg-[#C2F800] hover:text-black"
@@ -93,7 +103,7 @@ const PlanWorkoutCard = ({
                             onClick={handleMarkAsDone}
                             className="flex items-center gap-2 rounded-full bg-[#C2F800] px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#b8ed00]"
                         >
-                            <span>✓</span>
+                            <Check className="h-4 w-4" />
                             Mark as Done
                         </button>
                     )}
@@ -102,9 +112,9 @@ const PlanWorkoutCard = ({
                     <button
                         onClick={handleRemove}
                         aria-label={`Remove ${workout.name}`}
-                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xl text-gray-500 transition hover:bg-red-500/10 hover:text-red-500"
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-red-500/10 hover:text-red-500"
                     >
-                        ×
+                        <X className="h-5 w-5" />
                     </button>
 
                 </div>

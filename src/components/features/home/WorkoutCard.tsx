@@ -45,10 +45,10 @@ const WorkoutCard = ({ workout }: IWorkoutCardProps) => {
 
                     {/* Equipment */}
                     <p className="mt-2 text-sm text-gray-400">
-                        Equipment: {workout.equipment}
+                        {workout.equipment}
                     </p>
 
-                    {/* Stats */}
+                    
                     {/* Stats */}
                     <div className="mt-6 grid grid-cols-3 gap-3 border-t border-[#2A2A2A] pt-4">
                         <div className="flex items-center gap-2">
